@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <limits.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -100,52 +101,72 @@
 //     printf("\n%s\n", result);
 // }
 
-typedef struct {
-    int *data;
-    int length, capacity;
-} ArrayList;
+// typedef struct {
+//     int *data;
+//     int length, capacity;
+// } ArrayList;
 
-ArrayList newList(int start_cap) {
-    ArrayList list;
-    list.data = (int *)malloc(sizeof(int) * start_cap);
-    list.length = 0;
-    list.capacity = start_cap;
-    return list;
-}
+// ArrayList newList(int start_cap) {
+//     ArrayList list;
+//     list.data = (int *)malloc(sizeof(int) * start_cap);
+//     list.length = 0;
+//     list.capacity = start_cap;
+//     return list;
+// }
 
-void push(ArrayList *list, int value) {
-    if (list->length == list->capacity) {
-        int *temp = (int *)malloc(sizeof(int) * list->capacity * 2);
-        memcpy(temp, list->data, sizeof(int) * list->capacity);
-        free(list->data);
-        list->data = temp;
-        list->capacity *= 2;
-    }
-    list->data[list->length++] = value;
-}
+// void push(ArrayList *list, int value) {
+//     if (list->length == list->capacity) {
+//         int *temp = (int *)malloc(sizeof(int) * list->capacity * 2);
+//         memcpy(temp, list->data, sizeof(int) * list->capacity);
+//         free(list->data);
+//         list->data = temp;
+//         list->capacity *= 2;
+//     }
+//     list->data[list->length++] = value;
+// }
 
-int solution(const int values[], size_t count) {
-    ArrayList evens = newList(1), odds = newList(1);
+// int solution(const int values[], size_t count) {
+//     ArrayList evens = newList(1), odds = newList(1);
 
-    for (int i = 0; i < (int)count; i++) {
-        if (values[i] % 2 == 0) {
-            push(&evens, values[i]);
-        } else {
-            push(&odds, values[i]);
-        }
-    }
+//     for (int i = 0; i < (int)count; i++) {
+//         if (values[i] % 2 == 0) {
+//             push(&evens, values[i]);
+//         } else {
+//             push(&odds, values[i]);
+//         }
+//     }
 
-    if (evens.length == 1)
-        return evens.data[0];
-    else if (odds.length == 1)
-        return odds.data[0];
-    return 0;
-}
+//     if (evens.length == 1)
+//         return evens.data[0];
+//     else if (odds.length == 1)
+//         return odds.data[0];
+//     return 0;
+// }
+
+// void test_solution() {
+//     int values[] = {2, 4, 3, 6, 8};
+//     int sol = solution(values, 5);
+//     printf("\n%d\n", sol);
+// }
+
+// bool solution(int a, int b, int c) {
+//     if (a + b > c && a + c > b && b + c > a) return true;
+//     return false;
+// }
+
+// void test_solution() {
+//     assert(solution(1, 2, 2) == true);
+//     assert(solution(7, 2, 2) == false);
+// }
+
+void solution(size_t n, const char *const program[n], int registers[]) {}
 
 void test_solution() {
-    int values[] = {2, 4, 3, 6, 8};
-    int sol = solution(values, 5);
-    printf("\n%d\n", sol);
+    const char *program[] = {"mov a 5", "inc a",    "dec a",
+                             "dec a",   "jnz a -1", "inc a"};
+    int registers[26] = {0};
+    solution(6, program, registers);
+    assert(registers['a' - 'a'] == 1);
 }
 
 int main() {
